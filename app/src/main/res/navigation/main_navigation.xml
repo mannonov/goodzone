@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jaxadev.goodzone.ui.fragments.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="com.jaxadev.goodzone.ui.fragments.CatalogFragment"
+        tools:layout="@layout/fragment_catalog" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.jaxadev.goodzone.ui.fragments.BasketFragment"
+        tools:layout="@layout/fragment_basket" />
+    <fragment
+        android:id="@+id/favoriteFagment"
+        android:name="com.jaxadev.goodzone.ui.fragments.FavoriteFagment"
+        tools:layout="@layout/fragment_favorite_fagment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.jaxadev.goodzone.ui.fragments.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
