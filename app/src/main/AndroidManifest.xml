@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jaxadev.goodzone">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".GoodZoneApplication"
         android:allowBackup="true"
