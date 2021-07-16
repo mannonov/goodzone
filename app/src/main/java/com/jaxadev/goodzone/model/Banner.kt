@@ -8,7 +8,7 @@ data class Banner(
 
     val position: Position,
 
-    val active: String,
+    val active: Boolean,
 
     val image: String,
 

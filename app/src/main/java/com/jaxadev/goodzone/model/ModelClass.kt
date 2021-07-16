@@ -1,3 +1,9 @@
 package com.jaxadev.goodzone.model
 
-data class ModelClass()
+data class ModelClass(
+
+    var banners: List<Banner>,
+
+    val count: Int
+
+)

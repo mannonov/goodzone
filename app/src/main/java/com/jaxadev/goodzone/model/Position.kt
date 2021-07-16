@@ -8,7 +8,7 @@ data class Position(
 
     val slug: String,
 
-    val active: String,
+    val active: Boolean,
 
     val size: String,
 

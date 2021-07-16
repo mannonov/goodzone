@@ -1,4 +1,4 @@
-package com.jaxadev.goodzone.ui;
+package com.jaxadev.goodzone.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
