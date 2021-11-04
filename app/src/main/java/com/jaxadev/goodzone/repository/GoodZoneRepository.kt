@@ -16,7 +16,8 @@ class GoodZoneRepository() {
 
     val banners = MutableLiveData<ModelClass>()
 
-    suspend fun getInfoBanners() {
+    suspend fun getInfoBanners(){
+
         return withContext(Dispatchers.IO) {
 
             GoodZoneApi.goodZoneService.getInfo().enqueue(object : Callback<ModelClass> {
