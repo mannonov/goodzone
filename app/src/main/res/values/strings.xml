@@ -15,4 +15,5 @@
     <string name="product_category">Product Category</string>
     <string name="product_name">Product Name</string>
     <string name="product_price">Price</string>
+    <string name="popular_prducts">Popular products</string>
 </resources>

@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaxadev.goodzone.databinding.FragmentHomeBinding
 import com.jaxadev.goodzone.model.DiscountItem
+import com.jaxadev.goodzone.model.Product
 import com.jaxadev.goodzone.network.ApiClient
 import com.jaxadev.goodzone.repository.GoodZoneRepository
 import com.jaxadev.goodzone.ui.adapter.DiscountRecyclerViewAdapter
+import com.jaxadev.goodzone.ui.adapter.ProductRecyclerViewAdapter
 import com.jaxadev.goodzone.ui.adapter.SliderAdapter
 import com.jaxadev.goodzone.utils.Status.*
 import com.jaxadev.goodzone.viewmodel.GoodZoneViewModel
@@ -31,8 +33,10 @@ class HomeFragment : Fragment() {
     private lateinit var goodZoneViewModel: GoodZoneViewModel
 
     private lateinit var discountRecyclerViewAdapter: DiscountRecyclerViewAdapter
-    private lateinit var discounts: ArrayList<DiscountItem>
+    private lateinit var productRecyclerViewAdapter: ProductRecyclerViewAdapter
 
+    private lateinit var products: ArrayList<Product>
+    private lateinit var discounts: ArrayList<DiscountItem>
 
     var images = ArrayList<String>()
 
@@ -45,6 +49,7 @@ class HomeFragment : Fragment() {
             GoodZoneViewModelFactory(repository)
         )[GoodZoneViewModel::class.java]
 
+        products = ArrayList()
         discounts = ArrayList()
 
     }
@@ -117,6 +122,31 @@ class HomeFragment : Fragment() {
             adapter = discountRecyclerViewAdapter
 
         }
+
+        productRecyclerViewAdapter = ProductRecyclerViewAdapter(products)
+
+        goodZoneViewModel.getProducts().observe(requireActivity(), Observer {
+
+            when (it.status) {
+                LOADING -> Toast.makeText(requireActivity(), "Loading", Toast.LENGTH_SHORT).show()
+                ERROR -> Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show()
+                SUCCESS -> {
+                    it.data?.products?.let { it1 -> products.addAll(it1) }
+                    productRecyclerViewAdapter.notifyDataSetChanged()
+                    Log.d("HomeFragmentda", "onViewCreated: ${it.data}")
+                }
+            }
+
+        })
+
+        binding.rvPopularProducts.apply {
+
+            layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = productRecyclerViewAdapter
+
+        }
+
 
     }
 

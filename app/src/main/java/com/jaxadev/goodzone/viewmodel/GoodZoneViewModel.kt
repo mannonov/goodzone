@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaxadev.goodzone.model.BannerModel
+import com.jaxadev.goodzone.model.ProductModel
 import com.jaxadev.goodzone.model.PromoModel
 import com.jaxadev.goodzone.repository.GoodZoneRepository
 import com.jaxadev.goodzone.utils.Resource
@@ -14,10 +15,25 @@ class GoodZoneViewModel(private val repository: GoodZoneRepository) : ViewModel(
 
     val bannerLiveData = MutableLiveData<Resource<BannerModel>>()
     val promoLiveData = MutableLiveData<Resource<PromoModel>>()
+    val productLiveData = MutableLiveData<Resource<ProductModel>>()
 
     init {
         fetchBanners()
         fetchPromos()
+        fetchProducts()
+    }
+
+    private fun fetchProducts() {
+        viewModelScope.launch {
+            val products = repository.getProducts()
+            if (products.isSuccessful) {
+                productLiveData.value = Resource.success(products.body())
+            } else {
+                productLiveData.value =
+                    Resource.error(products.errorBody()?.string() ?: "Empty Product", null)
+            }
+
+        }
     }
 
     private fun fetchPromos() {
@@ -50,5 +66,6 @@ class GoodZoneViewModel(private val repository: GoodZoneRepository) : ViewModel(
 
     fun getBanners(): LiveData<Resource<BannerModel>> = bannerLiveData
     fun getPromos(): LiveData<Resource<PromoModel>> = promoLiveData
+    fun getProducts(): LiveData<Resource<ProductModel>> = productLiveData
 
 }
