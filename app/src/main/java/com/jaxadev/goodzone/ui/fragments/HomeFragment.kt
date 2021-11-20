@@ -4,15 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaxadev.goodzone.databinding.FragmentHomeBinding
 import com.jaxadev.goodzone.model.DiscountItem
+import com.jaxadev.goodzone.network.ApiClient
+import com.jaxadev.goodzone.repository.GoodZoneRepository
 import com.jaxadev.goodzone.ui.adapter.DiscountRecyclerView
 import com.jaxadev.goodzone.ui.adapter.SliderAdapter
 import com.jaxadev.goodzone.viewmodel.GoodZoneViewModel
+import com.jaxadev.goodzone.viewmodel.factory.GoodZoneViewModelFactory
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
+import com.jaxadev.goodzone.utils.Status.*;
 
 
 class HomeFragment : Fragment() {
@@ -20,7 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
 
-    val goodZoneViewModel = GoodZoneViewModel()
+    private lateinit var goodZoneViewModel: GoodZoneViewModel
 
     private lateinit var discountRecyclerView: DiscountRecyclerView
     private lateinit var discounts: ArrayList<DiscountItem>
@@ -36,7 +43,21 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        goodZoneViewModel.fetchBanners()
+        val repository = GoodZoneRepository(ApiClient.getApiService())
+        goodZoneViewModel = ViewModelProvider(
+            this,
+            GoodZoneViewModelFactory(repository)
+        )[GoodZoneViewModel::class.java]
+
+        goodZoneViewModel.getBanners().observe(this, Observer {
+
+            when (it.status) {
+                LOADING -> Toast.makeText(requireActivity(), "Loading", Toast.LENGTH_SHORT).show()
+                ERROR -> Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show()
+                SUCCESS -> Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
         discounts = ArrayList()
 
