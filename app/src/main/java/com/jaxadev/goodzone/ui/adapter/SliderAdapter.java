@@ -42,7 +42,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
         return images.size();
     }
 
-    public class Holder extends ViewHolder {
+    public static class Holder extends SliderViewAdapter.ViewHolder {
 
         ImageView imageView;
 

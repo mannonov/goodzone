@@ -31,7 +31,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 }
@@ -75,5 +75,8 @@ dependencies {
 
     //ImageSlider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
+    //RoundedImageView
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

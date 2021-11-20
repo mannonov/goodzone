@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.jaxadev.goodzone.databinding.HorizontalItemBinding
 import com.jaxadev.goodzone.model.DiscountItem
 
-class DiscountRecyclerView(val itemDiscountCallBack: ItemDiscountCallBack) :
-    ListAdapter<DiscountItem, DiscountRecyclerView.ViewHolder>(DiscountComparator()) {
+class DiscountRecyclerViewAdapter(val itemDiscountCallBack: ItemDiscountCallBack) :
+    ListAdapter<DiscountItem, DiscountRecyclerViewAdapter.ViewHolder>(DiscountComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

@@ -7,7 +7,7 @@ object ApiClient {
 
     private const val BASE_URL = "https://dev.goodzone.uz"
 
-    fun createRetrofit(): Retrofit {
+    private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())

@@ -6,6 +6,8 @@ class GoodZoneRepository(private val goodZoneService: GoodZoneService, ) {
 
     suspend fun getBanners() = goodZoneService.getBanners()
 
+    suspend fun getPromos() = goodZoneService.getPromos()
+
 }
 
 

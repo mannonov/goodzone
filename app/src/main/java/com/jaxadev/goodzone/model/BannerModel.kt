@@ -1,6 +1,6 @@
 package com.jaxadev.goodzone.model
 
-data class ModelClass(
+data class BannerModel(
 
     var banners: List<Banner>,
 
